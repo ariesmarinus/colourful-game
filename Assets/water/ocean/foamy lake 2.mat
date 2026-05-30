@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: foamy lake 2
+  m_Shader: {fileID: -6465566751694194690, guid: 2ce8f8ae333791a4c9c5f5ef5174a41b, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _norm:
+        m_Texture: {fileID: 2800000, guid: ba3bf8798211099479122ab68b906cf0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _norm2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _depth: 23.7
+    - _foam_amount: 5.3
+    - _foam_scale: 7066.8
+    - _foam_speed: 0.0003
+    - _lerp: 12.9
+    - _ls: 5
+    - _ls_1: -10
+    - _refraction: 2.5
+    - _smoothness: 0.64
+    - _speed2: -0.01
+    - _strenght: 13.46
+    m_Colors:
+    - _Color: {r: 0.61698115, g: 0.99399185, b: 1, a: 1}
+    - _foam_colour: {r: 131.69177, g: 766.9961, b: 689.87994, a: 0.011764706}
+    - _lerp_m: {r: 0, g: 0, b: 0, a: 0}
+    - _lerp_m_1: {r: 0, g: 0, b: 0, a: 0}
+    - _speed: {r: -0.01, g: 0, b: 0, a: 0}
+    - _speed2: {r: -0.003, g: 0, b: 0, a: 0}
+    - _speed2_1: {r: 0, g: 0, b: 0, a: 0}
+    - _uv: {r: 2.2, g: 12.8, b: 1, a: 1}
+    - _uv2: {r: 2.68, g: 11.06, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!114 &8327745289829064133
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 10
