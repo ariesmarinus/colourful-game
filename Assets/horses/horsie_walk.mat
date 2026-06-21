@@ -41,6 +41,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: a9b7369359c69a347afd995bb0f18674, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _norm:
+        m_Texture: {fileID: 2800000, guid: a9b7369359c69a347afd995bb0f18674, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -55,7 +59,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Float: 0
+    - _Float: 0.6
     - _Float_1: 0
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -66,13 +70,13 @@ Material:
     - _coloure1_scale: 1
     - _coloure2_scale: 1
     - _coloure3_scale: 1
-    - _speedB: 3
-    - _speedG: -3
+    - _speedB: 0
+    - _speedG: 0
     - _speedR: 0.26
     m_Colors:
-    - _Vector2: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector2: {r: 1.73, g: 2.21, b: 0, a: 0}
     - _Vector3: {r: 0, g: 0, b: 0, a: 0}
-    - _colour1: {r: 0.3132075, g: 0.19876127, b: 0, a: 1}
+    - _colour1: {r: 1, g: 1, b: 1, a: 1}
     - _colour2: {r: 0.5999999, g: 0.53912896, b: 0.45622632, a: 1}
     - _colour3: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

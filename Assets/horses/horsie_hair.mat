@@ -66,6 +66,9 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _back: 0.05
+    - _colour1_scale: 1
+    - _colour2_scale: 1
+    - _colour3_scale: 1
     - _leaf_move: 1.3
     - _wind_speed: 0.2
     m_Colors:
