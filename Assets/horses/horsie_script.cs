@@ -18,10 +18,9 @@ public class horsie_script : MonoBehaviour
         stand
     }
     public State state;
-    public Vector3 horsie_impulse;
+    public Vector3 goal;
     private float horsie_impulse_x;
     private float horsie_impulse_z;
-    private Vector3 horsies_velocity;
     void Start()
     {
         state = State.stand;
@@ -33,26 +32,22 @@ public class horsie_script : MonoBehaviour
 
 
         run_timer += Time.deltaTime;
-        timer += Time.deltaTime;
         clicked_timer += Time.deltaTime;
 
         StateChange();
     
-        horsie_impulse = new Vector3(horsie_impulse_x, 0, horsie_impulse_z) * impulse;
-        horsies_velocity = GetComponent<Rigidbody>().linearVelocity;//*Time.deltaTime;
+        goal = new Vector3(horsie_impulse_x, 0, horsie_impulse_z).normalized;
         
         Vector3 horsie_velocity = GetComponent<Rigidbody>().linearVelocity;//*Time.deltaTime;
-        GetComponent<Rigidbody>().AddForce(horsie_impulse, ForceMode.Force);
+        Vector3 torque = -Vector3.Cross(goal, transform.forward)*1000;
+        GetComponent<Rigidbody>().AddTorque(Limit(torque, 1.0f), ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(transform.forward*impulse, ForceMode.Force);
 
-        Debug.Log("velocity" + horsie_velocity);
-        Debug.Log("rotation" + transform.position);
-        //GetComponent<Rigidbody>().AddTorque(50*Time.smoothDeltaTime* (horsie_velocity-transform.position).normalized);
+        GetComponent<Rigidbody>().linearVelocity = Limit(horsie_velocity, max_speed);
 
 
-        if (Vector3.Magnitude(horsie_velocity) > max_speed)
-        {
-            GetComponent<Rigidbody>().linearVelocity = horsie_velocity / Vector3.Magnitude(horsie_velocity) * max_speed;
-        }
+
+
 
         if (colours_With_Shader.just_clicked == true)
         {
@@ -68,10 +63,9 @@ public class horsie_script : MonoBehaviour
     public void HorsieWalk()
     {
         max_speed = 10;
-        impulse = 10;
+        impulse = 50;
         horsie_impulse_x = Random.Range(-3f, 3f);
         horsie_impulse_z = Random.Range(-3f, 3f);
-        GetComponent<Rigidbody>().AddTorque(Vector3.up*(horsies_velocity.y-transform.position.y), ForceMode.VelocityChange);
         material.SetFloat("_speedG", -5f);
         material.SetFloat("_speedB", 5f);
         state = State.walk;
@@ -104,5 +98,14 @@ public class horsie_script : MonoBehaviour
                     }
                 break;
         }
+    }
+
+    Vector3 Limit(Vector3 vector3, float max_magnitude)
+    {
+        if (vector3.magnitude > max_magnitude)
+        {
+            vector3 *= max_magnitude/vector3.magnitude;
+        }
+        return vector3;
     }
 }
