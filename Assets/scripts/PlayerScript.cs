@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +22,7 @@ public class PlayerScript : MonoBehaviour
     public Camera cam;
     public float range;
     public GameObject center;
-    //public CharacterController characterController;
+    public MoseMovement moseMovement;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -81,34 +80,17 @@ public class PlayerScript : MonoBehaviour
         {
             center.SetActive(true);
         }
-        //else
-        //{
-        //    center.SetActive(false);
-        //}
+        
 
-        //Debug.Log(water.transform.position.y);
         if (water != null)
         {
-            if (transform.position.y > water.transform.position.y && underwater == true)
+            if (transform.position.y < water.transform.position.y-0.5f && underwater == false)
             {
-                Debug.Log("above water");
-                if (dayandnight.night == false)
-                {
-                    RenderSettings.fogColor = Color.lightSkyBlue;
-                }
-                else
-                {
-                    RenderSettings.fogColor = Color.darkBlue;
-                }
-
-                RenderSettings.fogDensity = 0.0008f;
-                GetComponent<Rigidbody>().linearDamping = 0;
-                underwater = false;
-                if (rain_pause == true)
-                {
-                    rain.SetActive(true);
-                    rain_pause = false;
-                }
+                Underwater();
+            }
+            else if (transform.position.y > water.transform.position.y-0.5f && underwater == true)
+            {
+                AboveWater();
             }
         }
 
@@ -150,85 +132,56 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("ocean"))
+        if (collision.gameObject.CompareTag("ocean"))
         {
-            water = other.gameObject;
-            Debug.Log("water");
-            if (dayandnight.night == false)
-            {
-                RenderSettings.fogColor = Color.turquoise;
-            }
-            else
-            {
-                RenderSettings.fogColor = new Color(0, 0, 69 / 255f);
-            }
-            RenderSettings.fogDensity = 0.09f;
-            GetComponent<Rigidbody>().linearDamping = 9;
-
-            underwater = true;
-            if (rain.activeSelf == true)
-            {
-                rain.SetActive(false);
-                rain_pause = true;
-            }
-            timer = 0;
+            water = collision.gameObject;
+            Debug.Log("in water");
+            Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), collision.gameObject.GetComponent<Collider>());
         }
-        else if (other.CompareTag("lake"))
+        else if (collision.gameObject.CompareTag("lake"))
         {
-            water = other.gameObject;
-            Debug.Log("water");
-            if (dayandnight.night == false)
-            {
-                RenderSettings.fogColor = Color.turquoise;
-            }
-            else
-            {
-                RenderSettings.fogColor = new Color(0, 0, 69 / 255f);
-            }
-            RenderSettings.fogDensity = 0.009f;
-            GetComponent<Rigidbody>().linearDamping = 9;
-
-            underwater = true;
-            if (rain.activeSelf == true)
-            {
-                rain.SetActive(false);
-                rain_pause = true;
-            }
-            timer = 0;
+            water = collision.gameObject;
+            Debug.Log("in water");
+            Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), collision.gameObject.GetComponent<Collider>());
         }
-        else if (other.CompareTag("waterfall"))
-        {
-            Debug.Log("waterfall collide");
-            sliding_on_waterfall = true;
-        }
-        else if (other.CompareTag("waterfall_bottom"))
-        {
-            Debug.Log("waterfal bottom collided");
-            sliding_on_waterfall = false;
-        }
-        else if (other.CompareTag("rainbow"))
-        {
-            Debug.Log("rainbow collided");
-            moving_to_top_of_rainbow = true;
-        }
-        else if (other.CompareTag("rainbow_top"))
-        {
-            Debug.Log("top");
-            moving_to_top_of_rainbow = false;
-            moving_to_new_island = true;
-        }
-        else if (other.CompareTag("new_island"))
-        {
-            Debug.Log("new island");
-            moving_to_new_island = false;
-            GetComponent<Rigidbody>().useGravity = true;
-            on_new_island = true;
-            timer = 0;
-        }
-
     }
+
+
+    void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("waterfall"))
+            {
+                Debug.Log("waterfall collide");
+                sliding_on_waterfall = true;
+            }
+            else if (other.CompareTag("waterfall_bottom"))
+            {
+                Debug.Log("waterfal bottom collided");
+                sliding_on_waterfall = false;
+            }
+            else if (other.CompareTag("rainbow"))
+            {
+                Debug.Log("rainbow collided");
+                moving_to_top_of_rainbow = true;
+            }
+            else if (other.CompareTag("rainbow_top"))
+            {
+                Debug.Log("top");
+                moving_to_top_of_rainbow = false;
+                moving_to_new_island = true;
+            }
+            else if (other.CompareTag("new_island"))
+            {
+                Debug.Log("new island");
+                moving_to_new_island = false;
+                GetComponent<Rigidbody>().useGravity = true;
+                on_new_island = true;
+                timer = 0;
+            }
+        }
+
     void Touch()
     {
         RaycastHit hit;
@@ -244,4 +197,41 @@ public class PlayerScript : MonoBehaviour
         
     }
 
+    void RainPause()
+    {
+        if (rain.activeSelf == true)
+        {
+            rain.SetActive(false);
+            rain_pause = true;
+            //timer = 0;
+        }
+    }
+
+    void RainUnpause()
+    {
+        if (rain_pause == true)
+        {
+            rain.SetActive(true);
+            rain_pause = false;
+        }
+    }
+
+    void Underwater()
+    {
+        RenderSettings.fogDensity = 0.03f;
+        GetComponent<Rigidbody>().linearDamping = 9;
+        moseMovement.force = 1f;
+        underwater = true;
+        RainPause();
+    }
+
+    void AboveWater()
+    {
+        Debug.Log("above water");
+        RenderSettings.fogDensity = 0.0008f;
+        GetComponent<Rigidbody>().linearDamping = 0;
+        moseMovement.force = 8;
+        underwater = false;
+        RainUnpause();
+    }
 }
