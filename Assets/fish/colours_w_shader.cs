@@ -26,6 +26,8 @@ public class colours_with_shader : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        tree = GameObject.Find("TreeWithLight (1)");
+        theTree = tree.GetComponent<TheTree>();
         SetColour();
         Glow();
         charged = true;

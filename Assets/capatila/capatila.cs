@@ -19,6 +19,10 @@ public class capatila : MonoBehaviour
     public Vector3 goal;
     private float capatila_impulse_x;
     private float capatila_impulse_z;
+    public Material change_mat;
+    public Material base_mat;
+    private float random_walk;
+    private float random_sit;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -43,7 +47,7 @@ public class capatila : MonoBehaviour
         GetComponent<Rigidbody>().linearVelocity = Limit(capatila_velocity, max_speed);
 
       
-        //transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
         
 
 
@@ -51,9 +55,6 @@ public class capatila : MonoBehaviour
         if (colours_With_Shader.just_clicked == true)
         {
             CapatilaWalk();
-        }
-        if (clicked_timer > 5)
-        {
             colours_With_Shader.just_clicked = false;
         }
     }
@@ -61,24 +62,26 @@ public class capatila : MonoBehaviour
     public void CapatilaWalk()
     {
         state = State.walk;
-        run_timer = 0;
-        max_speed = 3;
-        impulse = 50;
+        max_speed = 1;
+        impulse = 100;
         capatila_impulse_x = Random.Range(-3f, 3f);
         capatila_impulse_z = Random.Range(-3f, 3f);
+        random_walk = Random.Range(10, 50);
+        random_sit = Random.Range(5, 10);
         material.SetFloat("_wiggle_speed", 2.5f);
-        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ;
+        run_timer = 0;
 
     }
     public void CapatilaSit()
     {
         state = State.sit;
-        run_timer = 0;
         max_speed = 0;
         impulse = 0;
         material.SetFloat("_wiggle_speed", 0f);
-        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        run_timer = 0;
     }
 
     void StateChange()
@@ -86,13 +89,13 @@ public class capatila : MonoBehaviour
         switch (state)
         {
             case State.walk:
-                if (run_timer > Random.Range(25, 180))
+                if (run_timer > random_walk)
                     {
                         CapatilaSit();
                     }
                 break;
             case State.sit:
-                if (run_timer > Random.Range(3, 10))
+                if (run_timer > random_sit)
                     {
                         CapatilaWalk();
                     }
