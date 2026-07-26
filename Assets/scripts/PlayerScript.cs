@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject new_tree;
     public GameObject rain;
     public bool rain_pause;
-    public dayandnight dayandnight;
+    public dayandnight day_and_night;
     public Camera cam;
     public float range;
     public GameObject center;
@@ -218,9 +218,14 @@ public class PlayerScript : MonoBehaviour
 
     void Underwater()
     {
-        RenderSettings.fogDensity = 0.03f;
-        GetComponent<Rigidbody>().linearDamping = 9;
-        moseMovement.force = 1f;
+        RenderSettings.fogDensity = 0.01f;
+        day_and_night.water_rays.SetActive(true);
+        GetComponent<Rigidbody>().linearDamping = 20;
+        GetComponent<Rigidbody>().angularDamping = 0;
+        GetComponent<Rigidbody>().useGravity = false;
+        moseMovement.water = true;
+        moseMovement.force = 5f;
+        moseMovement.jump = 0.5f;
         underwater = true;
         RainPause();
     }
@@ -229,9 +234,15 @@ public class PlayerScript : MonoBehaviour
     {
         Debug.Log("above water");
         RenderSettings.fogDensity = 0.0008f;
+        day_and_night.water_rays.SetActive(false);
         GetComponent<Rigidbody>().linearDamping = 0;
+        GetComponent<Rigidbody>().angularDamping = 3;
+        GetComponent<Rigidbody>().useGravity = true;
+        moseMovement.water = false;
         moseMovement.force = 8;
+        moseMovement.jump = 0.8f;
         underwater = false;
+        //water = null;
         RainUnpause();
     }
 }
