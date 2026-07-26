@@ -9,7 +9,9 @@ This is a game where you walk around an island and collect colours from various 
         ![moth-sit](./Assets/pictures/moth_sit1.png)
 
     - Butterflies
+
         ![butterflies-fly](./Assets/pictures/butterflies_fly1.png)
+        
     - Caterpilars
 
     - Fish
@@ -20,8 +22,10 @@ This is a game where you walk around an island and collect colours from various 
 
     - Horses
         ![horse-on-the-beach](./Assets/pictures/horsie.png)
+
 - ### Objects
     - Rocks
         ![rock](./Assets/pictures/rock.png)
+
 
 It is still in progress
