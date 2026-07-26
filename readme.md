@@ -1,20 +1,27 @@
 # Colourful Game
-
+This is a game where you walk around an island and collect colours from various animals and objects to then put them all together and create a Rainbow.
 
 ![day](./Assets/image.png)
-![night](./Assets/pictures/night.png)
+## Sources of colours
+- ### Animals
+    - Moths
 
-## Animals
-- Moths
+        ![moth-sit](./Assets/pictures/moth_sit1.png)
 
-![moth-sit](./Assets/pictures/moth_sit.png)
+    - Butterflies
+        ![butterflies-fly](./Assets/pictures/butterflies_fly1.png)
+    - Caterpilars
 
-- Butterflies
+    - Fish
 
-![butterfly-sit](./Assets/pictures/butterfly_sit.png)
-![butterflies-fly](./Assets/pictures/butterflies_fly.png)
+        ![fish-in-lake](./Assets/pictures/fish_swim1.png)
 
-- Fish
+    - Crabs
 
-![fish-in-ocean](./Assets/pictures/fish.png)
-![fish-in-lake](./Assets/pictures/fish_swim.png)
+    - Horses
+        ![horse-on-the-beach](./Assets/pictures/horsie.png)
+- ### Objects
+    - Rocks
+        ![rock](./Assets/pictures/rock.png)
+
+It is still in progress
