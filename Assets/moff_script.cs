@@ -11,15 +11,22 @@ public class moff_script : MonoBehaviour
     public float moth_goes_totree = 0.0f;
     private float timer;
     public Material fly;
-    public Material sit;
-    public float sit_timer;
+    //public float sit_timer;
     public float fly_timer;
-    public bool is_sitting;
-    public float clicked_timer;
+    //public bool is_sitting;
+    public enum State
+    {
+        fly,
+        sit
+    }
+    public State state;
     public colours_with_shader colours_With_Shader;
+    private float random_fly;
+    private float random_sit;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        tree = transform.parent.gameObject;
         //transform.position = new Vector3
         //(Random.Range(tree.transform.position.x - distance, tree.transform.position.x + distance),
         //Random.Range(tree.transform.position.y - distance, tree.transform.position.y + distance),
@@ -31,8 +38,7 @@ public class moff_script : MonoBehaviour
     {
         fly_timer += Time.deltaTime;
         timer += Time.deltaTime;
-        sit_timer += Time.deltaTime;
-        clicked_timer += Time.deltaTime;
+        //sit_timer += Time.deltaTime;
         Vector3 moth_impulse = Random.onUnitSphere * impulse;
         Vector3 moth_to_tree = tree.transform.position - transform.position;
         float moth_dot = Vector3.Dot(moth_to_tree, moth_impulse) / (Vector3.Magnitude(moth_to_tree) * Vector3.Magnitude(moth_impulse));
@@ -57,7 +63,7 @@ public class moff_script : MonoBehaviour
             GetComponent<Rigidbody>().linearVelocity = (moth_velocity / Vector3.Magnitude(moth_velocity)) * max_speed;
         }
 
-        if (is_sitting == true && sit_timer > 5)
+        if (state == State.sit && fly_timer > 5)
         {
             Flying();
         }
@@ -65,9 +71,6 @@ public class moff_script : MonoBehaviour
         if (colours_With_Shader.just_clicked == true)
         {
             Flying();
-        }
-        if (clicked_timer > 5)
-        {
             colours_With_Shader.just_clicked = false;
         }
     }
@@ -88,18 +91,18 @@ public class moff_script : MonoBehaviour
     }
     public void Flying()
     {
+        state = State.fly;
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         GetComponent<MeshRenderer>().material.SetFloat("_speed", 25f);
-        is_sitting = false;
         fly_timer = 0;
     }
     public void Sitting()
     {
-        sit_timer = 0;
+        state = State.sit;
         transform.rotation = Quaternion.Euler(90, Random.Range(0, 90), 0);
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         GetComponent<MeshRenderer>().material.SetFloat("_speed", 0);
-        is_sitting = true;
+        fly_timer = 0;
         //Terrain the_terrain = Terrain.activeTerrain;
         //TerrainData terrainData = the_terrain.terrainData;
         //Vector3 tree_position = gameObject.transform.position;
@@ -113,4 +116,23 @@ public class moff_script : MonoBehaviour
         //transform.rotation *= Quaternion.FromToRotation(transform.up, interpolated_norm);
         //transform.rotation *= Quaternion.FromToRotation(transform.forward, interpolated_norm);
     }
+
+    //void StateChange()
+    //{
+    //    switch (state)
+    //    {
+    //        case State.fly:
+    //            if (fly_timer > random_fly)
+    //                {
+    //                    Sitting();
+    //                }
+    //            break;
+    //        case State.sit:
+    //            if (fly_timer > random_sit)
+    //                {
+    //                    Flying();
+    //                }
+    //            break;
+    //    }
+    //}
 }

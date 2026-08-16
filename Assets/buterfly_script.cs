@@ -16,10 +16,12 @@ public class buterfly_script : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        transform.position = new Vector3
-        (Random.Range(tree.transform.position.x - distance, tree.transform.position.x + distance),
-        Random.Range(tree.transform.position.y - distance, tree.transform.position.y + distance),
-        Random.Range(tree.transform.position.z - distance, tree.transform.position.z + distance));
+        //tree = GameObject.Find("TreeWithLight (1)");
+        tree = transform.parent.gameObject;
+        //transform.position = new Vector3
+        //(Random.Range(tree.transform.position.x - distance, tree.transform.position.x + distance),
+        //Random.Range(tree.transform.position.y - distance, tree.transform.position.y + distance),
+        //Random.Range(tree.transform.position.z - distance, tree.transform.position.z + distance));
     }
 
     // Update is called once per frame

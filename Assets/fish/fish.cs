@@ -12,7 +12,7 @@ public class fish : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        transform.position = new Vector3(transform.position.x, transform.position.y+Random.Range(-5, 5), transform.position.z);
     }
 
     // Update is called once per frame
@@ -22,14 +22,8 @@ public class fish : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > 5)
         {
-            //if (rotated == false)
             {
                 random_direction = Random.onUnitSphere;
-
-                //if (transform.position.y > water.transform.position.y)
-                //{
-                //    GetComponent<Rigidbody>().AddForce(Random.Range(1, 5), -5f, Random.Range(1, 5) * magnitude, ForceMode.Force);
-                //}
             }
             timer = 0;
         }
@@ -48,8 +42,6 @@ public class fish : MonoBehaviour
         if (collision.gameObject.CompareTag("land"))
         {
             random_direction = Random.onUnitSphere;
-            //Debug.Log("fish collide");
-            
         }
     }
     
